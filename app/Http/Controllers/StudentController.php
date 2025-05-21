@@ -46,7 +46,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('students.edit', ['student' => $student]);
     }
 
     /**
@@ -62,6 +62,6 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        return view('students.edit', ['student' => $student]);
     }
 }

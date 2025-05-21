@@ -18,7 +18,7 @@
         <p><b>Email : </b>{{$student->email}}</p>
     </div>
     <div>
-        <a href="" class="btn btn-dark">Edit</a>
+        <a href="{{ route('student.edit', $student->id) }}" class="btn btn-dark">Edit</a>
         <a href="" class="btn btn-danger">Delete</a>
     </div>
 </div>

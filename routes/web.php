@@ -21,4 +21,4 @@ Route::get('/', function () {
 
 Route::get('/students', [StudentController::class, 'index'])->name('student.index');
 Route::get('/student/{student}', [StudentController::class, 'show'])->name('student.show');
-Route::put('/edit/student/{student}', [StudentController::class, 'update'])->name('student.update');
+Route::get('/edit/student/{student}', [StudentController::class, 'edit'])->name('student.edit');
