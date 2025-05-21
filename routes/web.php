@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\StudentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts/app');
 });
+
+
+Route::get('/students', [StudentController::class, 'index'])->name('student.index');
+Route::get('/student/{student}', [StudentController::class, 'show'])->name('student.show');
+Route::put('/edit/student/{student}', [StudentController::class, 'update'])->name('student.update');
