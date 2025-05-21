@@ -21,8 +21,9 @@ class StudentController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
+    {   
+        $cities = City::all(); 
+        return view('students.create', ['cities' => $cities]);
     }
 
     /**
