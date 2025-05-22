@@ -57,7 +57,8 @@ class StudentController extends Controller
      * Display the specified resource.
      */
     public function show(Student $student)
-    {
+    {   
+        
         return view('students.show', ['student' => $student]);
     }
 
@@ -65,8 +66,9 @@ class StudentController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Student $student)
-    {
-        return view('students.edit', ['student' => $student]);
+    {   
+        $cities = City::all();
+        return view('students.edit', ['student' => $student,'cities' => $cities]);
     }
 
     /**
