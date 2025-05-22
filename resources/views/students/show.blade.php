@@ -11,7 +11,7 @@
     <h3>{{$student->birth_date}}</h3>
     <div>
         <p><b>Adress : </b>{{$student->adress}}</p>
-        <p><b>City : </b>{{$student->city_id}}</p>
+        <p><b>City : </b>{{$student->city->name}}</p>
     </div>
     <div>
         <p><b>Phone : </b>{{$student->phone}}</p>

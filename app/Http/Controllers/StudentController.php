@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\City;
 use Illuminate\Http\Request;
 
+
 class StudentController extends Controller
 {
     /**
@@ -13,7 +14,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::all(); 
+        $students = Student::select()
+            ->orderby('created_at', 'DESC')
+            ->paginate(15);
         return view('students.index', ['students' => $students]);
     }
 

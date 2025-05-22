@@ -20,7 +20,7 @@
     <tr>
       <td>{{ $student->name }}</td>
       <td>{{ $student->adress }}</td>
-      <td>{{ $student->city_id }}</td>
+      <td>{{ $student->city->name }}</td>
       <td>{{ $student->phone }}</td>
       <td>{{ $student->email }}</td>
       <td>{{ $student->birth_date }}</td>
@@ -30,7 +30,7 @@
     @endforelse
   </tbody>
 </table>
-
+{{$students}}
 
 
 @endsection
