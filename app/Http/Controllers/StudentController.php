@@ -31,7 +31,26 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+        'name' => 'required|string',
+        'adress' => 'required|string',
+        'phone' => 'required|string',
+        'email' => 'required|email|unique:students',
+        'birth_date' => 'required|date',
+        'city_id' => 'required|numeric'
+    ]);
+
+        $student=Student::create([
+            'name' => $request->name,
+            'adress' => $request->adress,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'email' => $request->email,
+            'birth_date' => $request->birth_date,
+            'city_id' => $request->city_id,
+        ]);
+
+    return redirect()->route('student.show', $student->id)->with('success', 'You just create a new student');
     }
 
     /**

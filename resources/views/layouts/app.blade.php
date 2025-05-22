@@ -42,6 +42,12 @@
                         <i class="bi bi-list"></i> Toggle Sidebar
                     </button>
             </div>
+            @if(session('success'))
+    <div class="mt-4 alert alert-info alert-dismissible fade show" role="alert">
+        <strong> {{ session('success')}} </strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
             @yield('content')
         </main>
     </div>
