@@ -45,7 +45,6 @@ class StudentController extends Controller
             'adress' => $request->adress,
             'phone' => $request->phone,
             'email' => $request->email,
-            'email' => $request->email,
             'birth_date' => $request->birth_date,
             'city_id' => $request->city_id,
         ]);
@@ -76,7 +75,23 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $request->validate([
+        'name' => 'required|string',
+        'adress' => 'required|string',
+        'phone' => 'required|string',
+        'birth_date' => 'required|date',
+        'city_id' => 'required|numeric'
+    ]);
+
+        $student->update([
+            'name' => $request->name,
+            'adress' => $request->adress,
+            'phone' => $request->phone,
+            'birth_date' => $request->birth_date,
+            'city_id' => $request->city_id,
+        ]);
+
+        return redirect()->route('student.show', $student->id)->with('success', 'You just update a student');
     }
 
     /**

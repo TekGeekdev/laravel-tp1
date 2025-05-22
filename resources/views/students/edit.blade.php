@@ -31,7 +31,7 @@
   </div>
   <div class="mb-3">
     <label for="email" class="form-label">Email</label>
-    <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $student->email) }}">
+    <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $student->email) }}" disabled>
      @if ($errors->has('email'))
         <div class="form-text text-danger">{{$errors->first('email')}}</div>
     @endif
