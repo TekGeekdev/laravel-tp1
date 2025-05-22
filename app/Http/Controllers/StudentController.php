@@ -99,6 +99,7 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        return view('students.edit', ['student' => $student]);
+        $student->delete();
+        return redirect()->route('student.index')->with('success', 'Student deleted.');
     }
 }
