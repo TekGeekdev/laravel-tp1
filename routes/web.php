@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SetLocaleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +19,7 @@ Route::get('/', function () {
     return view('layouts/app');
 });
 
+Route::get('/lang/{locale}', [SetLocaleController::class, 'index'])->name('lang');
 
 Route::get('/students', [StudentController::class, 'index'])->name('student.index');
 Route::get('/create/student', [StudentController::class, 'create'])->name('student.create');

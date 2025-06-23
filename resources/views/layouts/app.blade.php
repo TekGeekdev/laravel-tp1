@@ -6,6 +6,7 @@
     <title>TP01 - @yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/public/assets/css/nav.css">
 
 
 </head>
@@ -17,6 +18,16 @@
         <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
             <div class="position-sticky pt-3">
                 <ul class="nav flex-column">
+                    <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Langue
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route('lang', 'en') }}">English</a></li>
+                        <li><a class="dropdown-item" href="{{ route('lang', 'fr') }}">Français</a></li>
+                    </ul>
+                    </div>
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('student.index') }}">
                             <i class="bi bi-house-door me-2"></i>
