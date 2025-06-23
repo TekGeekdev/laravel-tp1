@@ -6,7 +6,7 @@
 <div>
     <div class="d-flex justify-content-between">
         <h2>{{$student->name}}</h2>
-        <img src="{{ asset('/ressources/img/profil.jpg') }}" alt="image profil">
+        <!-- <img src="{{ asset('/assets/img/profil.jpg') }}" alt="image profil" class="mw-75"> -->
     </div>
     <h3>{{$student->birth_date}}</h3>
     <div>
