@@ -20,24 +20,24 @@
                 <ul class="nav flex-column">
                     <div class="dropdown">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Langue
+                        @lang('lang.language')
                     </a>
 
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('lang', 'en') }}">English</a></li>
-                        <li><a class="dropdown-item" href="{{ route('lang', 'fr') }}">Français</a></li>
+                        <li><a class="dropdown-item" href="{{ route('lang', 'en') }}">@lang('lang.english')</a></li>
+                        <li><a class="dropdown-item" href="{{ route('lang', 'fr') }}">@lang('lang.french')</a></li>
                     </ul>
                     </div>
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('student.index') }}">
                             <i class="bi bi-house-door me-2"></i>
-                            Home
+                            @lang('lang.home')
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('student.create') }}">
                             <i class="bi bi-people me-2"></i>
-                            New student
+                            @lang('lang.new_student')
                         </a>
                     </li>
                 </ul>

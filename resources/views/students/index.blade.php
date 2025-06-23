@@ -1,18 +1,18 @@
 @extends('layouts.app')
-@section('title', 'Students')
-@section('dashboardPage', 'Dashboard')
+@section('title', trans('lang.page__name_index_student'))
+@section('dashboardPage', trans('lang.dashboard'))
 @section('content')
 
 <table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Adress</th>
-      <th scope="col">City</th>
-      <th scope="col">Phone</th>
-      <th scope="col">Email</th>
-      <th scope="col">Birth date</th>
-      <th scope="col">Show</th>
+      <th scope="col">@lang('lang.name')</th>
+      <th scope="col">@lang('lang.adress')</th>
+      <th scope="col">@lang('lang.city')</th>
+      <th scope="col">@lang('lang.phone')</th>
+      <th scope="col">@lang('lang.email')</th>
+      <th scope="col">@lang('lang.birth_date')</th>
+      <th scope="col">@lang('lang.show')</th>
     </tr>
   </thead>
   <tbody>

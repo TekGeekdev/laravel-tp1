@@ -41,7 +41,14 @@ class StudentController extends Controller
         'email' => 'required|email|unique:students',
         'birth_date' => 'required|date',
         'city_id' => 'required|numeric'
-    ]);
+    ],[], [
+        'name' => trans('lang.name'),
+        'adress' => trans('lang.adress'),
+        'phone' => trans('lang.phone'),
+        'email' => trans('lang.email'),
+        'birth_date' => trans('lang.birth_date'),
+        'city_id' => trans('lang.city')
+        ]);
 
         $student=Student::create([
             'name' => $request->name,
