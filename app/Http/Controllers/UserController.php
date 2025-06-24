@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -20,7 +22,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create')
+        return view('user.create');
     }
 
     /**
@@ -28,7 +30,32 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string||min:2|max:255',
+            'email' => 'required|email|exists:students,email|unique:users,email',
+            'password' => 'required|min:2|max:20|string|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
+            'confirm_password' =>  'required|min:2|max:20|string|same:password'
+            ],[], [
+            'name' => trans('lang.name'),
+            'email' => trans('lang.email'),
+            'password' => trans('lang.password'),
+            'confirm_password' => trans('lang.confirm_password')
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $student = Student::where('email', $request->email)->first();
+
+        if ($student) {
+            $student->user_id = $user->id;
+            $student->save();
+        }
+
+        return redirect()->route('student.index')->with('success', 'You just create a new user');
     }
 
     /**
