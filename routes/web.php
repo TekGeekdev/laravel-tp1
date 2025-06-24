@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SetLocaleController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +21,7 @@ Route::get('/', function () {
     return view('layouts/app');
 });
 
+Route::get('/lang/{locale}', [SetLocaleController::class, 'index'])->name('lang');
 
 Route::get('/students', [StudentController::class, 'index'])->name('student.index');
 Route::get('/create/student', [StudentController::class, 'create'])->name('student.create');
@@ -26,3 +30,7 @@ Route::get('/student/{student}', [StudentController::class, 'show'])->name('stud
 Route::get('/edit/student/{student}', [StudentController::class, 'edit'])->name('student.edit');
 Route::put('/edit/student/{student}', [StudentController::class, 'update'])->name('student.update');
 Route::delete('/student/{student}', [StudentController::class, 'destroy'])->name('student.delete');
+
+Route::get('/login', [AuthController::class, 'create'])->name('login');
+Route::post('/login', [AuthController::class, 'store'])->name('login.store');
+Route::get('/logout', [AuthController::class, 'destroy'])->name('logout');

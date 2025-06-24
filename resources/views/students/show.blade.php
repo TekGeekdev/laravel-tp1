@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'profil')
+@section('title', 'Profil')
 @section('dashboardPage', 'Profil')
 @section('content')
 
@@ -10,17 +10,17 @@
     </div>
     <h3>{{$student->birth_date}}</h3>
     <div>
-        <p><b>Adress : </b>{{$student->adress}}</p>
-        <p><b>City : </b>{{$student->city->name}}</p>
+        <p><b>@lang('lang.adress') : </b>{{$student->adress}}</p>
+        <p><b>@lang('lang.city') : </b>{{$student->city->name}}</p>
     </div>
     <div>
-        <p><b>Phone : </b>{{$student->phone}}</p>
-        <p><b>Email : </b>{{$student->email}}</p>
+        <p><b>@lang('lang.phone'): </b>{{$student->phone}}</p>
+        <p><b>@lang('lang.email') : </b>{{$student->email}}</p>
     </div>
     <div>
-        <a href="{{ route('student.edit', $student->id) }}" class="btn btn-dark">Edit</a>
+        <a href="{{ route('student.edit', $student->id) }}" class="btn btn-dark">@lang('lang.button_edit')</a>
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Delete
+        @lang('lang.button_delete') 
         </button>
     </div>
 </div>
