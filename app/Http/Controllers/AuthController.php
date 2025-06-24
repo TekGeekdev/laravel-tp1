@@ -44,6 +44,8 @@ class AuthController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Session::flush();
+        Auth::logout();
+        return redirect(route('login'));
     }
 }
