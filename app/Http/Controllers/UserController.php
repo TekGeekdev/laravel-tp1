@@ -55,7 +55,7 @@ class UserController extends Controller
             $student->save();
         }
 
-        return redirect()->route('student.index')->with('success', 'You just create a new user');
+        return redirect()->route('student.index')->with('success', trans('lang.message_success_create_user'));
     }
 
     /**
