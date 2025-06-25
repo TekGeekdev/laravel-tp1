@@ -6,6 +6,8 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SetLocaleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,10 +18,6 @@ use App\Http\Controllers\UserController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('layouts/app');
-});
 
 Route::get('/lang/{locale}', [SetLocaleController::class, 'index'])->name('lang');
 
@@ -34,3 +32,17 @@ Route::delete('/student/{student}', [StudentController::class, 'destroy'])->name
 Route::get('/login', [AuthController::class, 'create'])->name('login');
 Route::post('/login', [AuthController::class, 'store'])->name('login.store');
 Route::get('/logout', [AuthController::class, 'destroy'])->name('logout');
+
+Route::get('/users', [UserController::class, 'index'])->name('user.index');
+Route::get('/registration', [UserController::class, 'create'])->name('user.create');
+Route::post('/registration', [UserController::class, 'store'])->name('user.store');
+Route::get('/edit/user/{user}', [UserController::class, 'edit'])->name('user.edit');
+
+Route::get('/create/post', [PostController::class, 'create'])->name('post.create');
+Route::post('/create/post', [PostController::class, 'store'])->name('post.store');
+Route::get('/', [PostController::class, 'index'])->name('post.index');
+Route::get('/edit/post/{post}', [PostController::class, 'edit'])->name('post.edit');
+Route::post('/edit/post/{post}', [PostController::class, 'store'])->name('post.update');
+Route::delete('/post/{post}', [PostController::class, 'destroy'])->name('post.destroy');
+
+Route::middleware('auth')->group(function () {});
