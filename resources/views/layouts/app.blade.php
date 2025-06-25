@@ -28,6 +28,7 @@
                         <li><a class="dropdown-item" href="{{ route('lang', 'fr') }}">@lang('lang.french')</a></li>
                     </ul>
                     </div>
+                    @auth
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('student.index') }}">
                             <i class="bi bi-house-door me-2"></i>
@@ -40,6 +41,28 @@
                             @lang('lang.new_student')
                         </a>
                     </li>
+                    @endauth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.create') }}">
+                            <i class="bi bi-people me-2"></i>
+                            @lang('lang.new_user')
+                        </a>
+                    </li>
+                    @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">
+                            <i class="bi bi-people me-2"></i>
+                            @lang('lang.login')
+                        </a>
+                    </li>
+                    @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}">
+                            <i class="bi bi-people me-2"></i>
+                            @lang('lang.logout')
+                        </a>
+                    </li>
+                    @endguest
                 </ul>
             </div>
         </nav>
