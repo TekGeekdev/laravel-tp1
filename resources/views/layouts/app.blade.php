@@ -1,131 +1,234 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TP01 - @yield('title')</title>
+    <title>@yield('title', 'Dashboard')</title>
+    
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/public/assets/css/nav.css">
-
-
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    
+    @stack('styles')
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="container-fluid">
-    <div class="row">
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    
+    <!-- Dashboard Wrapper -->
+    <div class="dashboard-wrapper">
         <!-- Sidebar -->
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
-            <div class="position-sticky pt-3">
-                <ul class="nav flex-column">
-                    <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <aside class="dashboard-sidebar" id="dashboardSidebar">
+            <!-- Brand -->
+            <a href="{{ route('student.index') }}" class="sidebar-brand">
+                <div class="brand-icon">
+                    <i class="bi bi-mortarboard-fill"></i>
+                </div>
+                <div class="brand-text">
+                    <h4>@lang('lang.menu_title')</h4>
+                    <small>@lang('lang.menu_subtitle')</small>
+                </div>
+            </a>
+            
+            <!-- Language Selector -->
+            <div class="language-dropdown">
+                <div class="dropdown">
+                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-globe me-2"></i>
                         @lang('lang.language')
-                    </a>
-
+                    </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('lang', 'en') }}">@lang('lang.english')</a></li>
-                        <li><a class="dropdown-item" href="{{ route('lang', 'fr') }}">@lang('lang.french')</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('lang', 'fr') }}">
+                                <i class="bi bi-flag-fill me-2"></i>
+                                @lang('lang.french')
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('lang', 'en') }}">
+                                <i class="bi bi-flag me-2"></i>
+                                @lang('lang.english')
+                            </a>
+                        </li>
                     </ul>
-                    </div>
-                    @auth
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('student.index') }}">
-                            <i class="bi bi-house-door me-2"></i>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="sidebar-nav">
+                @auth
+                <!-- Section Principale -->
+                <div class="nav-section">
+                    <div class="nav-section-title">@lang('lang.menu_main_nav')</div>
+                    <div class="nav-item">
+                        <a href="{{ route('post.index') }}" class="nav-link {{ request()->routeIs('post.index') ? 'active' : '' }}">
+                            <i class="bi bi-house-door-fill"></i>
                             @lang('lang.home')
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('student.create') }}">
-                            <i class="bi bi-people me-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Section Étudiants -->
+                <div class="nav-section">
+                    <div class="nav-section-title">@lang('lang.menu_manage_students')</div>
+                    <div class="nav-item">
+                        <a href="{{ route('student.create') }}" class="nav-link {{ request()->routeIs('student.create') ? 'active' : '' }}">
+                            <i class="bi bi-person-plus-fill"></i>
                             @lang('lang.new_student')
                         </a>
-                    </li>
-                    @endauth
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.create') }}">
-                            <i class="bi bi-people me-2"></i>
+                    </div>
+                    <div class="nav-item">
+                        <a href="{{ route('student.index') }}" class="nav-link {{ request()->routeIs('student.index') || request()->routeIs('student.show') ? 'active' : '' }}">
+                            <i class="bi bi-people-fill"></i>
+                            @lang('lang.list_students')
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Section Publications -->
+                <div class="nav-section">
+                    <div class="nav-section-title">@lang('lang.menu_manage_posts')</div>
+                    <div class="nav-item">
+                        <a href="{{ route('post.create') }}" class="nav-link {{ request()->routeIs('post.create') ? 'active' : '' }}">
+                            <i class="bi bi-journal-plus"></i>
+                            @lang('lang.page__name_create_post')
+                        </a>
+                    </div>
+                    
+                    <!-- <div class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="bi bi-journal-text"></i>
+                            Mes Publications
+                        </a>
+                    </div> -->
+                </div>
+                @endauth
+                
+                <!-- Section Administration -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Administration</div>
+                    <div class="nav-item">
+                        <a href="{{ route('user.create') }}" class="nav-link {{ request()->routeIs('user.create') ? 'active' : '' }}">
+                            <i class="bi bi-person-gear"></i>
                             @lang('lang.new_user')
                         </a>
-                    </li>
+                    </div>
+                </div>
+                
+                <!-- Section Compte -->
+                <div class="nav-section">
+                    <div class="nav-section-title">@lang('lang.menu_account')</div>
                     @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">
-                            <i class="bi bi-people me-2"></i>
+                    <div class="nav-item">
+                        <a href="{{ route('login') }}" class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}">
+                            <i class="bi bi-box-arrow-in-right"></i>
                             @lang('lang.login')
                         </a>
-                    </li>
+                    </div>
                     @else
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}">
-                            <i class="bi bi-people me-2"></i>
+                    <div class="nav-item">
+                        <a href="{{ route('logout') }}" class="nav-link">
+                            <i class="bi bi-box-arrow-right"></i>
                             @lang('lang.logout')
                         </a>
-                    </li>
-                    @endguest
-                </ul>
+                    </div>
+                    @endauth
+                </div>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="header-title">
+                    <h1>@yield('dashboardPage', 'Dashboard')</h1>
+                    <span class="header-subtitle">@yield('dashboardSubtitle')Bienvenue {{ Auth::user() ? Auth::user()->name : '' }}</span>
+                </div>  
+            </header>
+            
+            <!-- Content Area -->
+            <div class="dashboard-content">
+                <!-- Success Messages -->
+                @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show slide-in-right" role="alert">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill me-3" style="font-size: 1.25rem;"></i>
+                        <div>
+                            <strong>Succès !</strong>
+                            {{ session('success') }}
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                
+                <!-- Error Messages -->
+                @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show slide-in-right" role="alert">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-exclamation-triangle-fill me-3" style="font-size: 1.25rem;"></i>
+                        <div>
+                            <strong>Erreur !</strong>
+                            {{ session('error') }}
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                
+                <!-- Warning Messages -->
+                @if(session('warning'))
+                <div class="alert alert-warning alert-dismissible fade show slide-in-right" role="alert">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-exclamation-circle-fill me-3" style="font-size: 1.25rem;"></i>
+                        <div>
+                            <strong>Attention !</strong>
+                            {{ session('warning') }}
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                
+                <!-- Info Messages -->
+                @if(session('info'))
+                <div class="alert alert-info alert-dismissible fade show slide-in-right" role="alert">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-info-circle-fill me-3" style="font-size: 1.25rem;"></i>
+                        <div>
+                            <strong>Information !</strong>
+                            {{ session('info') }}
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                
+                <!-- Main Content -->
+                <div class="fade-in-up">
+                    @yield('content')
+                </div>
             </div>
-        </nav>
-
-        <!-- Main content -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div
-                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">@yield('dashboardPage')</h1>
-                <button id="sidebarToggle" class="btn btn-primary d-md-none">
-                        <i class="bi bi-list"></i> Toggle Sidebar
-                    </button>
-            </div>
-            @if(session('success'))
-    <div class="mt-4 alert alert-info alert-dismissible fade show" role="alert">
-        <strong> {{ session('success')}} </strong> 
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
-            @yield('content')
         </main>
     </div>
-</div>
-    </div>
-
-    <footer>
-
-    </footer>
+    
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+    
+    @stack('scripts')
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-            const sidebar = document.getElementById('sidebar');
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            const body = document.body;
-
-            sidebarToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('sidebar-hidden');
-            });
-
-            // Close sidebar when clicking outside on mobile
-            body.addEventListener('click', function(event) {
-                if (window.innerWidth <= 767.98 && !sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
-                    sidebar.classList.add('sidebar-hidden');
-                }
-            });
-
-            // Update sidebar visibility on window resize
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 767.98) {
-                    sidebar.classList.remove('sidebar-hidden');
-                }
-            });
-
-            // Highlight active nav item
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-        });
-</script>
 </html>
