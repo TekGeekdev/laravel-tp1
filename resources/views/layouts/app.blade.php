@@ -30,7 +30,7 @@
         <!-- Sidebar -->
         <aside class="dashboard-sidebar" id="dashboardSidebar">
             <!-- Brand -->
-            <a href="{{ route('student.index') }}" class="sidebar-brand">
+            <a href="{{ route('post.index') }}" class="sidebar-brand">
                 <div class="brand-icon">
                     <i class="bi bi-mortarboard-fill"></i>
                 </div>

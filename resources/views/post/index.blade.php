@@ -14,7 +14,7 @@
                     {{ __('Date:') }} {{ $post['created_at'] }}
                 </small>
             </p>
-
+            @auth
             @if (Auth::user()->student->id === $post['student_id'])
                 <a href="{{ route('post.edit', $post['id']) }}" class="btn btn-warning btn-sm">
                     <i class="bi bi-pencil-square"></i> {{ __('Éditer') }}
@@ -27,6 +27,7 @@
                     </button>
                 </form>
             @endif
+            @endauth
         </div>
     </div>
 @endforeach
