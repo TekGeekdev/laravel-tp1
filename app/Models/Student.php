@@ -19,11 +19,14 @@ class Student extends Model
     ];
 
     public function city()
-{
-    return $this->belongsTo(City::class);
-}
-public function user()
-{
-    return $this->belongsTo(User::class);
-}
+    {
+        return $this->belongsTo(City::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function posts(){
+            return $this->hasMany(Post::class);
+        }
 }

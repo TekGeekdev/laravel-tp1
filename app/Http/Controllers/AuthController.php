@@ -36,13 +36,13 @@ class AuthController extends Controller
         
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
         Auth::login($user);
-        return redirect()->intended(route('student.index'))->withSuccess(trans('lang.message_success_connected'));
+        return redirect()->intended(route('post.index'))->withSuccess(trans('lang.message_success_connected'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
         Session::flush();
         Auth::logout();

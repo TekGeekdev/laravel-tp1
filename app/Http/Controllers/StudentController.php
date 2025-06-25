@@ -59,7 +59,7 @@ class StudentController extends Controller
             'city_id' => $request->city_id,
         ]);
 
-    return redirect()->route('student.show', $student->id)->with('success', 'You just create a new student');
+    return redirect()->route('student.show', $student->id)->with('success', trans('lang.message_success_create_student'));
     }
 
     /**
