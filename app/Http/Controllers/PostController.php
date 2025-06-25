@@ -65,7 +65,7 @@ class PostController extends Controller
             'student_id' => $student_id
         ]);
 
-        return redirect()->route('student.index')->with('success', trans('lang.message_success_create_post'));
+        return redirect()->route('post.index')->with('success', trans('lang.message_success_create_post'));
     }
 
     /**
@@ -80,8 +80,12 @@ class PostController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Post $post)
-    {
-        //
+    {   
+        if ($post->student_id !== Auth::user()->student->id) {
+        return redirect()->route('post.index')->with('error', trans('lang.message_unauthorized_edit'));
+        }
+
+        return view('post.edit', ['post' => $post]);
     }
 
     /**
@@ -89,14 +93,44 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+        'title_en' => 'required|min:3|max:255',
+        'content_en' => 'required',
+        'title_fr' => 'required_with:content_fr|nullable|min:3|max:255',
+        'content_fr' => 'required_with:title_fr',
+    ], [], [
+        'title_en' => trans('lang.post_title_english'),
+        'content_en' => trans('lang.post_content_english'),
+        'title_fr' => trans('lang.post_title_french'),
+        'content_fr' => trans('lang.post_content_french')
+    ]);
+
+    $post->update([
+        'title' => array_filter([
+            'en' => $request->title_en,
+            'fr' => $request->title_fr,
+        ]),
+        'content' => array_filter([
+            'en' => $request->content_en,
+            'fr' => $request->content_fr,
+        ]),
+    ]);
+
+    return redirect()->route('post.index', $post)
+                     ->with('success', trans('lang.message_success_post_updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Post $post)
-    {
-        //
+    {   
+        if ($post->student_id !== Auth::user()->student->id) {
+        return redirect()->route('post.index')->with('error', trans('lang.message_unauthorized_delete'));
+        }
+
+        $post->delete();
+
+        return redirect()->route('post.index')->with('success', trans('lang.message_success_post_deleted'));
     }
 }
