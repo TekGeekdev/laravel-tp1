@@ -11,7 +11,7 @@
             <p class="card-text">
                 <small class="text-muted">
                     {{ __('Écrit par') }} : <strong>{{ $post['student_name'] }}</strong> |
-                    {{ __('le') }} {{ $post['created_at'] }}
+                    {{ __('Date:') }} {{ $post['created_at'] }}
                 </small>
             </p>
 
