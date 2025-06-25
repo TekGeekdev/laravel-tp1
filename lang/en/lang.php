@@ -53,5 +53,9 @@ return [
     "message_success_create_user" => "You have just created a new user",
     "message_success_create_student" => "You have just created a new student",
     "message_success_connected" => "You are now logged in",
-    "message_success_create_post" => "You have just created a new post"
+    "message_success_create_post" => "You have just created a new post",
+    "message_success_post_updated" => "You have just updated this article",
+    "message_unauthorized_edit" => "You are not authorized to edit this post.",
+    "message_unauthorized_delete" => "You are not authorized to delete this post.",
+    "message_success_post_deleted" => "The post was successfully deleted.",
 ];

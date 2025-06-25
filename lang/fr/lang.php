@@ -54,6 +54,10 @@ return [
     "message_success_create_user" => "Vous venez de créer un nouvel utilisateur",
     "message_success_create_student" => "Vous venez de créer un nouvel élève",
     "message_success_connected" => "Vous êtes connecté",
-    "message_success_create_post" => "Vous venez de créer un nouvel article"
+    "message_success_create_post" => "Vous venez de créer un nouvel article",
+    "message_success_post_updated" => "Vous venez de mettre à jour article",
+    "essage_unauthorized_edit" => "Vous n'êtes pas autorisé à modifier cet article.",
+    "message_unauthorized_delete" => "Vous n'êtes pas autorisé à supprimer cet article.",
+    "message_success_post_deleted" => "L'article a été supprimé avec succès.",
     
 ];

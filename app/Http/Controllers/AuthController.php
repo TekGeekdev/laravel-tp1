@@ -25,7 +25,10 @@ class AuthController extends Controller
         $request->validate([
         'email' => 'required|email|exists:users',
         'password' => 'required|min:2|max:20'
-    ]);
+    ],[], [
+        'email' => trans('lang.email'),
+        'password' => trans('lang.password')
+        ]);
         $credentials = $request->only('email', 'password');
         if(!Auth::validate($credentials)):
             return redirect(route('login'))
